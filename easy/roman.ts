@@ -13,7 +13,6 @@ const romans: RomansTypes = {
 function romanToInt(s: string): number {
     const numbers = s.split('').map((v) => romans[v as keyof RomansTypes]);
     return numbers.reduce((acc, curr, i) => {
-        // console.log(curr < numbers[i + 1] ?? 0, {acc, curr});
         return curr < numbers[i + 1] ?? 0 ? acc - curr : acc + curr
     }, 0);
 }
