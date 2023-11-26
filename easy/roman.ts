@@ -1,27 +1,22 @@
+type RomansTypes = {[key: string]: number};
+
+const romans: RomansTypes = {
+    I: 1, 
+    V: 5,
+    X: 10,
+    L: 50,
+    C: 100,
+    D: 500,
+    M: 1000,
+}
+
 function romanToInt(s: string): number {
-    const arr = s.split('');
-    return arr.reduce((acc, curr, i, old) => {
-        let value = 0;
-        switch (curr) {
-            case 'L': 
-                value = 50; 
-                break;
-            case 'V': 
-                value = old[i - 1] === 'I' ? 0 : 5; 
-                break;  
-            case 'X': 
-                value = old[i - 1] === 'I' ? 0 : 10; 
-                break;        
-            case 'I':
-                value = old[i + 1] !== 'V' ? 1 : 4;
-                break;
-            default:
-                break;
-        }
-
-        return acc + value;
+    const numbers = s.split('').map((v) => romans[v as keyof RomansTypes]);
+    return numbers.reduce((acc, curr, i) => {
+        // console.log(curr < numbers[i + 1] ?? 0, {acc, curr});
+        return curr < numbers[i + 1] ?? 0 ? acc - curr : acc + curr
     }, 0);
-};
+}
 
-console.log(romanToInt('LIV'));
-
+console.log(romanToInt('LVIII'));
+console.log(romanToInt('MCMXCIV'));
